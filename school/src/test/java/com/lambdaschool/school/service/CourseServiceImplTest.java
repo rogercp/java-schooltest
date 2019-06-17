@@ -1,6 +1,8 @@
 package com.lambdaschool.school.service;
 
 import com.lambdaschool.school.SchoolApplication;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,9 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
+import static org.junit.Assert.*;
+ import static junit.framework.TestCase.assertEquals;
+ import static junit.framework.TestCase.assertNotNull;
+ 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SchoolApplication.class)
 public class CourseServiceImplTest
@@ -23,30 +26,36 @@ public class CourseServiceImplTest
 
 
 
-    @BeforeEach
-    void setUp()
+    @Before
+    public void setUp()  throws Exception
     {
         MockitoAnnotations.initMocks(this);
     }
 
-    @AfterEach
-    void tearDown()
+    @After
+    public void tearDown()  throws Exception
     {
     }
 
     @Test
-    void findAll()
+    public void findAll()
     {
         assertEquals(6, courseService.findAll().size());
     }
 
     @Test
-    void getCountStudentsInCourse()
+    public void getCountStudentsInCourse()
     {
     }
 
     @Test
-    void delete()
+    public void delete()
     {
+    }
+
+    @Test
+    public void findCourseById()
+    {
+           assertEquals("Node.js", courseService.findCourseById(3).getCoursename());
     }
 }
