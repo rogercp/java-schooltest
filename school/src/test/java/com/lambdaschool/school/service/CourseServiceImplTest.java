@@ -1,10 +1,6 @@
 package com.lambdaschool.school.service;
 
-import com.lambdaschool.school.SchoolApplication;
-import com.lambdaschool.school.SchoolApplication;
-import com.lambdaschool.school.model.Course;
-import com.lambdaschool.school.model.Instructor;
-import com.lambdaschool.school.model.Student;
+import com.lambdaschool.school.SchoolApplicationTests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,14 +12,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityNotFoundException;
 
-import java.util.ArrayList;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.*;
- 
+
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SchoolApplication.class)
+@SpringBootTest(classes = SchoolApplicationTests.class)
 public class CourseServiceImplTest
 {
 
