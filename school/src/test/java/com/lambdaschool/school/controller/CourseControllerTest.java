@@ -44,7 +44,52 @@ public class CourseControllerTest
     {
         courseList = new ArrayList<>();
 
-       courseList.addAll(courseService.findAll());
+        Instructor i1 = new Instructor("Sally");
+        Instructor i2 = new Instructor("Lucy");
+        Instructor i3 = new Instructor("Charlie");
+
+        i1.setInstructid(1);
+        i2.setInstructid(2);
+        i3.setInstructid(3);
+
+        Student s1 = new Student("John");
+        Student s2 = new Student("Julian");
+        Student s3 = new Student("Mary");
+
+        s1.setStudid(1);
+        s2.setStudid(2);
+        s3.setStudid(3);
+
+        List<Student> students = new ArrayList<>();
+        students.add(s1);
+        students.add(s2);
+        students.add(s3);
+
+        Course c1 = new Course("Data Science");
+        Course c2 = new Course("JavaScript");
+        Course c3 = new Course("Node.js");
+        Course c4 = new Course("Java back End");
+
+        c1.setCourseid(1);
+        c1.setInstructor(i1);
+        c1.setStudents(students);
+
+        c2.setCourseid(2);
+        c2.setInstructor(i2);
+        c2.setStudents(students);
+
+        c3.setCourseid(3);
+        c3.setInstructor(i3);
+        c3.setStudents(students);
+
+        c4.setCourseid(4);
+        c4.setInstructor(i2);
+        c4.setStudents(students);
+
+        courseList.add(c1);
+        courseList.add(c2);
+        courseList.add(c3);
+        courseList.add(c4);
     }
 
     @After
@@ -68,7 +113,6 @@ public class CourseControllerTest
         String er = mapper.writeValueAsString(courseList);
 
         assertEquals("Rest API Returns List", er, tr);
-
 
     }
 
