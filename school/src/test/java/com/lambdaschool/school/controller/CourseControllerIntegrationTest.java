@@ -30,7 +30,7 @@ public class CourseControllerIntegrationTest
     }
 
     @Test
-    public void whenMeasuredReponseTime()
+    public void measureReponseTime()
     {
         given().when().get("/courses/courses").then().time(lessThan(5000L));
     }
