@@ -132,18 +132,27 @@ public class CourseControllerTest
     @Test
     public void addNewCourse() throws Exception
     {
-        String apiUrl = "/courses/course/add";
+        String apiUrl = "/courses/courses/course/add";
 
-        ArrayList<Student> newStudents = new ArrayList<>();
-        String courseName = "bio";
-        Course newCourse = new Course(courseName);
-        newCourse.setStudents(newStudents);
-        newCourse.getStudents().add(new Student("rogert"));
+        Instructor i1 = new Instructor("Rognelius");
+        i1.setInstructid(1);
+
+        Student s1 = new Student("rogino");
+        
+        s1.setStudid(1);
+
+        List<Student> students = new ArrayList<>();
+        students.add(s1);
+
+        Course c1 = new Course("Hard Course");
+        c1.setCourseid(1);
+        c1.setInstructor(i1);
+        c1.setStudents(students);
 
         ObjectMapper mapper = new ObjectMapper();
-        String courseString = mapper.writeValueAsString(newCourse);
+        String courseString = mapper.writeValueAsString(c1);
 
-        Mockito.when(courseService.save(any(Course.class))).thenReturn(newCourse);
+        Mockito.when(courseService.save(any(Course.class))).thenReturn(c1);
 
         RequestBuilder rb = MockMvcRequestBuilders.post(apiUrl)
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
