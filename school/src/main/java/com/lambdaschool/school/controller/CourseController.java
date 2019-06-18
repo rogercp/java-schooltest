@@ -34,15 +34,6 @@ public class CourseController
         return new ResponseEntity<>(courseService.getCountStudentsInCourse(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/courses/{courseid}")
-    public ResponseEntity<?> deleteCourseById(@PathVariable long courseid)
-    {
-        courseService.delete(courseid);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
-
     @PostMapping(value = "/courses/course/add", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewCourse(@Valid @RequestBody Course newCourse)
     {
@@ -56,5 +47,10 @@ public class CourseController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-
+    @DeleteMapping("/courses/{courseid}")
+    public ResponseEntity<?> deleteCourseById(@PathVariable long courseid)
+    {
+        courseService.delete(courseid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

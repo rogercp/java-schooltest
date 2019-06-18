@@ -2,6 +2,7 @@ package com.lambdaschool.school.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaschool.school.model.Course;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,14 +25,23 @@ public class CourseControllerIntegrationTest
     private WebApplicationContext webApplicationContext;
 
     @Before
-    public void initialiseRestAssuredMockMvcWebApplicationContext()
+    public void setUp() throws Exception
     {
         RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
     }
 
+    @After
+    public void tearDown() throws Exception
+    {
+    }
     @Test
     public void measureResponseTime()
     {
         given().when().get("/courses/courses").then().time(lessThan(5000L));
+    }
+
+    @Test
+    public void addNewCourseResponseTime(){
+        given().when().get("/courses/course/add").then().time(lessThan(5000L));
     }
 }

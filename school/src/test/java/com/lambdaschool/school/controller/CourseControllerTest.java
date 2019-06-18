@@ -1,7 +1,6 @@
 package com.lambdaschool.school.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lambdaschool.school.SchoolApplicationTests;
 import com.lambdaschool.school.model.Course;
 import com.lambdaschool.school.model.Instructor;
 import com.lambdaschool.school.model.Student;
@@ -20,15 +19,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-
+import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = CourseController.class, secure = false)
+@WebMvcTest(value = CourseController.class,secure = false)
 public class CourseControllerTest
 {
     @Autowired
@@ -36,6 +37,7 @@ public class CourseControllerTest
 
     @MockBean
     private CourseService courseService;
+
 
     private ArrayList<Course> courseList;
 
@@ -113,8 +115,8 @@ public class CourseControllerTest
         String er = mapper.writeValueAsString(courseList);
 
         assertEquals("Rest API Returns List", er, tr);
-
     }
+
 
     @Test
     public void getCountStudentsInCourses()
@@ -124,5 +126,28 @@ public class CourseControllerTest
     @Test
     public void deleteCourseById()
     {
+    }
+
+
+    @Test
+    public void addNewCourse() throws Exception
+    {
+        String apiUrl = "/courses/course/add";
+
+        ArrayList<Student> newStudents = new ArrayList<>();
+        String courseName = "bio";
+        Course newCourse = new Course(courseName);
+        newCourse.setStudents(newStudents);
+        newCourse.getStudents().add(new Student("rogert"));
+
+        ObjectMapper mapper = new ObjectMapper();
+        String courseString = mapper.writeValueAsString(newCourse);
+
+        Mockito.when(courseService.save(any(Course.class))).thenReturn(newCourse);
+
+        RequestBuilder rb = MockMvcRequestBuilders.post(apiUrl)
+                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+                .content(courseString);
+        mockMvc.perform(rb).andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
     }
 }

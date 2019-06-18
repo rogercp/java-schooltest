@@ -63,7 +63,7 @@ public class CourseServiceImplTest
         assertEquals(2,courseService.findAll().size());
     }
 
-    
+
 
     @Test
     public void findCourseById()
